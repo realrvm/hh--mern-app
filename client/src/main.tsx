@@ -6,8 +6,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { router } from 'routes';
 
-import 'index.scss';
-
 const client = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

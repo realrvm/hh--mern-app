@@ -1,8 +1,9 @@
-import { createContext, ReactNode, useState } from 'react';
-import axios from 'axios';
+import { createContext, ReactNode, useContext, useState } from 'react';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
 
 type User = {
-  id: string;
   name: string;
   password: string;
   birthday: string;
@@ -11,8 +12,9 @@ type User = {
   img: string;
 };
 
-type ContextType = {
+export type ContextType = {
   user: User | null;
+  signup: UseMutationResult<AxiosResponse, unknown, User>;
 };
 
 type Props = {
@@ -20,8 +22,30 @@ type Props = {
 };
 
 const Context = createContext<ContextType | null>(null);
+const baseURL = import.meta.env.VITE_BASE_URL;
+
+export function useAuth() {
+  return useContext(Context);
+}
 
 export function AuthProvider({ children }: Props) {
+  const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
-  return <Context.Provider value={{ user }}>{children}</Context.Provider>;
+  const [error, setError] = useState<string | null>(null);
+
+  const signup = useMutation({
+    mutationFn: (user: User) => {
+      return axios.post(`${baseURL}/signup`, user);
+    },
+    onSuccess: () => {
+      navigate('/login');
+    },
+    onError(error: AxiosError) {
+      if (error.response && typeof error.response.data === 'string')
+        setError(error.response.data);
+    },
+  });
+  return (
+    <Context.Provider value={{ user, signup }}>{children}</Context.Provider>
+  );
 }

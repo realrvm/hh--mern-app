@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { AuthProvider } from 'context';
-import { Login, Signup, AuthPage, People, Account } from 'pages';
+import { Login, Signup, AuthPage, People, Account, App } from 'pages';
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +9,6 @@ export const router = createBrowserRouter([
     children: [
       {
         element: <AuthPage />,
-        path: '/',
         children: [
           {
             element: <Login />,
@@ -20,6 +19,10 @@ export const router = createBrowserRouter([
             path: '/signup',
           },
         ],
+      },
+      {
+        element: <App />,
+        path: '/'
       },
       {
         element: <Account />,
