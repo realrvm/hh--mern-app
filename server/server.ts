@@ -6,12 +6,7 @@ import { config } from "dotenv";
 import morgan from "morgan";
 import helmet from "helmet";
 
-import {
-  loginRoutes,
-  signupRoutes,
-  accountRoutes,
-  peopleRoutes,
-} from "./routes";
+import router from "./routes";
 
 /* CONFIGURATION */
 config();
@@ -23,13 +18,10 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-/* ROUTES */
-app.use("/login", loginRoutes);
-app.use("/signup", signupRoutes);
-app.use("/account", accountRoutes);
-app.use("/people", peopleRoutes);
+/* ROUTE */
+app.use("/api", router);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 5000;
