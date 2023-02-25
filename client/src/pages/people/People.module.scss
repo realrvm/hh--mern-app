@@ -1,0 +1,13 @@
+.people {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: rem(10) rem(20);
+  padding: rem(10) rem(20);
+
+  &_nobody {
+    color: var(--green);
+    font-size: rem(64);
+    margin:auto;
+  }
+}

@@ -1,0 +1,25 @@
+.file_picker {
+  &_hidden {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  &_btn {
+    width: 100%;
+    height: rem(40);
+    background-color: var(--elem-bg);
+    color: var(--white);
+    border: 1px solid transparent;
+    border-radius: rem(5);
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid var(--green);
+    }
+  }
+}

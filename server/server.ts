@@ -5,6 +5,7 @@ import cors from "cors";
 import { config } from "dotenv";
 import morgan from "morgan";
 import helmet from "helmet";
+import fileUpload from "express-fileupload";
 
 import router from "./routes";
 
@@ -19,6 +20,7 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(fileUpload({ createParentPath: true }));
 
 /* ROUTE */
 app.use("/api", router);

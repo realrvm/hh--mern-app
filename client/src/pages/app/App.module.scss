@@ -1,0 +1,25 @@
+.app {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url('../../assets/bg.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: rem(50);
+
+  &_wrapper {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--theme-bg);
+    border-radius: rem(20);
+    box-shadow: 0 rem(20) rem(20) rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  &_content {
+    flex: 1;
+  }
+}

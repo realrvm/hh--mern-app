@@ -9,8 +9,8 @@ import styles from './Login.module.scss';
 type Props = {};
 
 export default function Login({}: Props) {
-  const { user } = useAuth() as ContextType;
-  const userNameRef = useRef<HTMLInputElement>(null);
+  const { user, login } = useAuth() as ContextType;
+  const userEmailRef = useRef<HTMLInputElement>(null);
   const userPasswordRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
@@ -22,23 +22,25 @@ export default function Login({}: Props) {
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
 
-    const id = userNameRef.current?.value;
+    const email = userEmailRef.current?.value;
     const password = userPasswordRef.current?.value;
-    if (!id || !password) {
+    if (!email || !password) {
       return;
     }
+
+    login.mutate({ email, password });
   };
 
   return (
     <>
-      <h1 className={styles.login_title}>Login</h1>
+      <h1 className={styles.login_title}>Логин</h1>
       <form onSubmit={handleSubmit} className={styles.login_form}>
-        <label htmlFor="user_name">Name</label>
-        <Input id="user_name" required ref={userNameRef} />
-        <label htmlFor="password">Password</label>
-        <Input id="password" required ref={userPasswordRef} />
+        <label htmlFor="user_email">Email</label>
+        <Input id="user_email" required ref={userEmailRef} type="email" maxLength={30}/>
+        <label htmlFor="password">Пароль</label>
+        <Input id="password" required ref={userPasswordRef} type="password" maxLength={20}/>
         <Button type="submit" className={styles.login_btn}>
-          Login
+          Войти
         </Button>
       </form>
     </>

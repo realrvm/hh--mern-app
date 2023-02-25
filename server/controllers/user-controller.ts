@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { UploadedFile } from "express-fileupload";
 import { signUp, logIn, getPeople } from "../service/user-service";
 
 export const signup = async (req: Request, res: Response) => {
@@ -25,6 +26,33 @@ export const people = async (req: Request, res: Response) => {
   try {
     const users = await getPeople();
     res.status(200).json(users);
+  } catch (err) {
+    res.status(404).json({ message: (err as Error).message });
+  }
+};
+
+export const upload = (req: Request, res: Response) => {
+  try {
+    if (!req.files) return;
+
+    const file = req.files.file as UploadedFile;
+    if (!file) return res.json({ error: "Incorrect name input" });
+
+    const newFileName = encodeURI(`${Date.now()}-${file?.name}`);
+
+    file.mv(
+      `${__dirname}/../../client/public/uploads/${newFileName}`,
+      (err: Error) => {
+        if (err) {
+          return res.status(500).json(err);
+        }
+
+        res.status(200).json({
+          fileName: file.name,
+          filePath: `/uploads/${newFileName}`,
+        });
+      }
+    );
   } catch (err) {
     res.status(404).json({ message: (err as Error).message });
   }

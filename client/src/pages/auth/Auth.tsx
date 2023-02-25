@@ -14,7 +14,7 @@ export default function Auth({}: Props) {
       </Form.Body>
       <Form.Bottom>
         <Link to={isSignupPage ? '/login' : '/signup'}>
-          {isSignupPage ? 'Login' : 'Create New Account'}
+          {isSignupPage ? 'Войти' : 'Создать аккаунт'}
         </Link>
       </Form.Bottom>
     </Form>
