@@ -6,3 +6,4 @@ export { default as People } from './people/People';
 export { default as App } from './app/App';
 export { default as Navbar } from './global/Navbar';
 export { default as Sidebar } from './global/Sidebar';
+export { default as Edit } from './edit/Edit';

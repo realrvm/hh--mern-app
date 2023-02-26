@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { AuthProvider } from 'context';
-import { Login, Signup, AuthPage, People, Account, App } from 'pages';
+import { Login, Signup, AuthPage, People, Account, App, Edit } from 'pages';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +17,10 @@ export const router = createBrowserRouter([
           {
             element: <Signup />,
             path: '/signup',
+          },
+          {
+            element: <Edit />,
+            path: '/edit',
           },
         ],
       },

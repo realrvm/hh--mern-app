@@ -50,7 +50,15 @@ export const getPeople = async () => {
 };
 
 /* Обновление личных данных */
-export const updatePerson = async (email: string) => {
-  const people = await UserModel.findOne({ email }).exec();
-  return people;
+export const updateUser = async (
+  id: string,
+  { name, img }: { name: string; img: string },
+  newValue: { new: boolean }
+) => {
+  const user = await UserModel.findByIdAndUpdate(
+    id,
+    { name, img },
+    newValue
+  ).exec();
+  return user;
 };

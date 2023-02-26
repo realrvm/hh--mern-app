@@ -6,6 +6,7 @@ type Props = {};
 export default function Auth({}: Props) {
   const { pathname: path } = useLocation();
   const isSignupPage = path === '/signup';
+  const isEditPage = path === '/edit';
 
   return (
     <Form>
@@ -13,9 +14,13 @@ export default function Auth({}: Props) {
         <Outlet />
       </Form.Body>
       <Form.Bottom>
-        <Link to={isSignupPage ? '/login' : '/signup'}>
-          {isSignupPage ? 'Войти' : 'Создать аккаунт'}
-        </Link>
+        {isEditPage ? (
+          <Link to="/account">Назад в Профиль</Link>
+        ) : (
+          <Link to={isSignupPage ? '/login' : '/signup'}>
+            {isSignupPage ? 'Войти' : 'Создать аккаунт'}
+          </Link>
+        )}
       </Form.Bottom>
     </Form>
   );

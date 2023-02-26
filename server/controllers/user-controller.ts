@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UploadedFile } from "express-fileupload";
-import { signUp, logIn, getPeople } from "../service/user-service";
+import { signUp, logIn, getPeople, updateUser } from "../service/user-service";
 
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -53,6 +53,22 @@ export const upload = (req: Request, res: Response) => {
         });
       }
     );
+  } catch (err) {
+    res.status(404).json({ message: (err as Error).message });
+  }
+};
+
+export const edit = async (req: Request, res: Response) => {
+  try {
+    const { uid, name, img } = req.body;
+    const newValue = { new: true };
+    const updatedUser = await updateUser(
+      uid,
+      { name, img },
+      newValue
+    );
+
+    res.status(200).json(updatedUser);
   } catch (err) {
     res.status(404).json({ message: (err as Error).message });
   }

@@ -36,6 +36,7 @@ export type ContextType = {
   peoples: User[];
   upload: UseMutationResult<AxiosResponse, unknown, any>;
   setUser: Dispatch<any>;
+  edit: UseMutationResult<AxiosResponse, unknown, User>;
 };
 
 type Props = {
@@ -71,9 +72,8 @@ export function AuthProvider({ children }: Props) {
     onSuccess: () => {
       navigate('/login');
     },
-    onError(error: AxiosError) {
-      if (error.response && typeof error.response.data === 'string')
-        setError(error.response.data);
+    onError(error) {
+      if (error instanceof AxiosError) alert(error.response?.data.message);
     },
   });
 
@@ -82,12 +82,11 @@ export function AuthProvider({ children }: Props) {
       return axios.post(`${baseURL}/login`, id).then((res) => res.data);
     },
     onSuccess(data) {
-      const { createdAt, updatedAt, password, ...user } = data;
+      const { createdAt, updatedAt, ...user } = data;
       setUser(user);
     },
-    onError(error: AxiosError) {
-      if (error.response && typeof error.response.data === 'string')
-        setError(error.response.data);
+    onError(error) {
+      if (error instanceof AxiosError) alert(error.response?.data.message);
     },
   });
 
@@ -99,15 +98,27 @@ export function AuthProvider({ children }: Props) {
       const { data: values } = data;
       setPeoples(values);
     },
-    onError(error: AxiosError) {
-      if (error.response && typeof error.response.data === 'string')
-        setError(error.response.data);
+    onError(error) {
+      if (error instanceof AxiosError) alert(error.response?.data.message);
+    },
+  });
+
+  const edit = useMutation({
+    mutationFn: (user: User) => {
+      return axios.post(`${baseURL}/edit`, user);
+    },
+    onSuccess(data) {
+      const { data: user } = data;
+      setUser(user);
+    },
+    onError(error) {
+      if (error instanceof AxiosError) alert(error.response?.data.message);
     },
   });
 
   return (
     <Context.Provider
-      value={{ user, signup, login, getUsers, peoples, upload, setUser }}
+      value={{ user, signup, login, getUsers, peoples, upload, setUser, edit }}
     >
       {children}
     </Context.Provider>
