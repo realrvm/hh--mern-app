@@ -16,6 +16,10 @@
 - препроцессор `scss`
 - `typescript`
 
+Тестовое
+
+<img src="https://user-images.githubusercontent.com/35721423/221433719-a4a8d943-139d-4cd0-948d-6942b4c0c9c6.jpg" width=600px>
+
 Окно входа
 
 <img src="https://user-images.githubusercontent.com/35721423/221433215-ad4e0ba5-5d8e-4086-98d4-69427ead0989.png" width=600px>
